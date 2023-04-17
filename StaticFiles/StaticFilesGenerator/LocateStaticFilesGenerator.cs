@@ -3,6 +3,9 @@ using System.IO;
 
 namespace StaticFilesGenerator
 {
+    /// <summary>
+    /// Generator is based on - https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.md
+    /// </summary>
     [Generator]
     public class LocateStaticFilesGenerator : IIncrementalGenerator
     {
