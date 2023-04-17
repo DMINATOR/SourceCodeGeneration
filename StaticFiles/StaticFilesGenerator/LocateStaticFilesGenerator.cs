@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using System.IO;
 
-namespace StaticFilesGenerator
+namespace StaticFilesIncrementalGenerator
 {
     /// <summary>
     /// Generator is based on - https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.md
