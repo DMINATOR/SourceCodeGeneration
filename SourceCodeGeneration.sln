@@ -18,6 +18,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppGenerator", "BasicExample\ConsoleAppGenerator\ConsoleAppGenerator.csproj", "{8052A0C8-513E-43EB-805B-64D302C33A1C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StaticFiles", "StaticFiles", "{1C2F2895-D234-461B-A672-92866FA638E6}"
+	ProjectSection(SolutionItems) = preProject
+		StaticFiles\README.md = StaticFiles\README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticFilesApp", "StaticFiles\StaticFilesApp\StaticFilesApp.csproj", "{15C68201-8C16-484A-82C6-2D33DB84E9FD}"
 EndProject

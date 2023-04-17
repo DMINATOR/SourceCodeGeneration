@@ -14,4 +14,17 @@
 		<ProjectReference Include="..\StaticFilesGenerator\StaticFilesGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 
 	</ItemGroup>
+
+
+	<ItemGroup>
+	  <None Update="Files\TextFile3.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Files\TextFile2.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Files\TextFile1.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 </Project>
