@@ -34,7 +34,5 @@ That being said, I hope that taking a direct dependency on a source generator pr
 You are literally hooking the compiler at the deepest level. You get to run prior to us even getting the compilation value that powers literally everything higher up. With that great power comes great responsibility. It's difficult by it's very nature, and will continue to be that way.
 ```
 
-[Extension to the help](https://marketplace.visualstudio.com/items?itemName=AlexanderGayko.AutoUpdateAssemblyName&ssr=false#overview)
-
 # Sources
 * [Source generator updates: incremental generators](https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/)
