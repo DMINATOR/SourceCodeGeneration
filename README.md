@@ -5,6 +5,8 @@
 
 [Reference:](https://github.com/JoanComasFdz/dotnet-how-to-debug-source-generator-vs2022)
 
+[Install The .NET Compiler Platform SDK](https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/)
+
 ## Debug Configuration
 1. Right click on the SourceGenerator project
 2. Click `Properties`.

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DebugProfile": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\StaticFilesApp\\StaticFilesApp.csproj"
+    }
+  }
+}
