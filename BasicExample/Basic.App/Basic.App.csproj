@@ -10,7 +10,7 @@
   <ItemGroup>
 	  
 	<!-- This has to be added manually with ReferenceOutputAssembly and OutputItemType -->
-    <ProjectReference Include="..\ConsoleAppGenerator\ConsoleAppGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Basic.Generator\Basic.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   
   </ItemGroup>
 
