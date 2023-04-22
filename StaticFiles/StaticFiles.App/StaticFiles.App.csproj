@@ -11,9 +11,9 @@
 	<ItemGroup>
 
 		<!-- This has to be added manually with ReferenceOutputAssembly and OutputItemType -->
-		<ProjectReference Include="..\StaticFilesIncrementalGenerator\StaticFilesIncrementalGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\StaticFiles.IncrementalGenerator\StaticFiles.IncrementalGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 
-		<ProjectReference Include="..\StaticFilesSourceGenerator\StaticFilesSourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\StaticFiles.SourceGenerator\StaticFiles.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 
 	</ItemGroup>
 
