@@ -12,7 +12,8 @@
 	<ItemGroup>
 
 		<!-- Code Generator dependencies -->
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="*" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="*" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.8" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8" PrivateAssets="all" />
 	</ItemGroup>
 </Project>

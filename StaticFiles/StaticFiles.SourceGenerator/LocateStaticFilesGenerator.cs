@@ -10,7 +10,7 @@ namespace StaticFilesSourceGenerator
     /// 
     /// </summary>
     [Generator]
-    public class HelloSourceGenerator : ISourceGenerator
+    public class LocateStaticFilesGenerator : ISourceGenerator
     {
         public void Execute(GeneratorExecutionContext context)
         {

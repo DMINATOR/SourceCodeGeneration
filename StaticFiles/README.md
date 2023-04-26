@@ -38,7 +38,9 @@ You are literally hooking the compiler at the deepest level. You get to run prio
 
 https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#unit-testing-of-generators
 
+Documentation is rough:
 
+[Source code to generators](https://github.com/dotnet/roslyn-sdk/blob/d16bce93b36d078682776b93d5435287b038783f/tests/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.SourceGenerators.Testing.UnitTests/SourceGeneratorValidationTests.cs)
 
 # Sources
 * [Source generator updates: incremental generators](https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/)
