@@ -6,7 +6,7 @@ namespace StaticFiles.SourceGenerator
     /// 
     /// </summary>
     [Generator]
-    public class TestFilesGenerator : ISourceGenerator
+    public class SimpleFileSourceGenerator : ISourceGenerator
     {
         public void Execute(GeneratorExecutionContext context)
         {
