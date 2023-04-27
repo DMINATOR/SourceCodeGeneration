@@ -3,7 +3,7 @@
 namespace StaticFiles.SourceGenerator
 {
     /// <summary>
-    /// 
+    /// Generates two source files
     /// </summary>
     [Generator]
     public class SimpleFileSourceGenerator : ISourceGenerator

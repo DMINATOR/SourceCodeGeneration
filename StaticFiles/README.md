@@ -44,3 +44,4 @@ Documentation is rough:
 
 # Sources
 * [Source generator updates: incremental generators](https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/)
+* [Using Source Generators for Fun - by Jason Bock](https://www.youtube.com/watch?v=4DVV7FXukC8&list=PLdo4fOcmZ0oVFtp9MDEBNbA2sSqYvXSXO&index=78&t=71s)
