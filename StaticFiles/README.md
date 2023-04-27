@@ -37,6 +37,7 @@ You are literally hooking the compiler at the deepest level. You get to run prio
 ## Testing
 
 https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#unit-testing-of-generators
+https://www.meziantou.net/testing-roslyn-incremental-source-generators.htm
 
 Documentation is rough:
 

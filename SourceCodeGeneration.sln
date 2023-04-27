@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticFiles.IncrementalGene
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticFiles.SourceGenerator", "StaticFiles\StaticFiles.SourceGenerator\StaticFiles.SourceGenerator.csproj", "{D6E78CCE-A2CB-4AC6-81C0-BB9903B414A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticFiles.Tests", "StaticFiles\StaticFiles.Tests\StaticFiles.Tests.csproj", "{D0FE78E7-9DA9-4E31-89FF-CE89A95E0ED8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticFiles.SourceGenerator.Tests", "StaticFiles\StaticFiles.SourceGenerator.Tests\StaticFiles.SourceGenerator.Tests.csproj", "{B6A46B2D-4375-44A5-8EBF-1BEEFBB2A1A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,10 +56,10 @@ Global
 		{D6E78CCE-A2CB-4AC6-81C0-BB9903B414A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6E78CCE-A2CB-4AC6-81C0-BB9903B414A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6E78CCE-A2CB-4AC6-81C0-BB9903B414A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0FE78E7-9DA9-4E31-89FF-CE89A95E0ED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0FE78E7-9DA9-4E31-89FF-CE89A95E0ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0FE78E7-9DA9-4E31-89FF-CE89A95E0ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0FE78E7-9DA9-4E31-89FF-CE89A95E0ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6A46B2D-4375-44A5-8EBF-1BEEFBB2A1A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A46B2D-4375-44A5-8EBF-1BEEFBB2A1A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A46B2D-4375-44A5-8EBF-1BEEFBB2A1A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A46B2D-4375-44A5-8EBF-1BEEFBB2A1A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,7 +70,7 @@ Global
 		{BF663009-039E-44A2-A4BD-E802E7714C89} = {1C2F2895-D234-461B-A672-92866FA638E6}
 		{8B34FE60-119D-4529-95BC-50DB69B0F954} = {1C2F2895-D234-461B-A672-92866FA638E6}
 		{D6E78CCE-A2CB-4AC6-81C0-BB9903B414A8} = {1C2F2895-D234-461B-A672-92866FA638E6}
-		{D0FE78E7-9DA9-4E31-89FF-CE89A95E0ED8} = {1C2F2895-D234-461B-A672-92866FA638E6}
+		{B6A46B2D-4375-44A5-8EBF-1BEEFBB2A1A9} = {1C2F2895-D234-461B-A672-92866FA638E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA1CCD31-87D7-49E2-A7DC-58DAEFB316FC}
