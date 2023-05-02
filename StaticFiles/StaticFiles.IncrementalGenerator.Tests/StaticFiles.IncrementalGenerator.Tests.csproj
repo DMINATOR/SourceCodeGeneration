@@ -11,10 +11,12 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing.XUnit" Version="1.1.1" />
 
 		<!-- Code Generator dependencies -->
-		<PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.8" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Common" Version="*" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="*" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="*" PrivateAssets="all" />
-
+		
+		<!-- Had to override this to remove the warning-->
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="*" PrivateAssets="all" />
 	</ItemGroup>
 
 	<!-- For Running tests -->
