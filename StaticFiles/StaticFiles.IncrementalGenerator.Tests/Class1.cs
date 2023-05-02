@@ -211,9 +211,20 @@ namespace StaticFiles.IncrementalGenerator.Tests
 
             GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
 
+            // Or we can look at the results directly:
             driver = driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
+            GeneratorDriverRunResult runResult = driver.GetRunResult();
 
-            Assert.NotNull(driver);
+            // The runResult contains the combined results of all generators passed to the driver
+            Assert.Equal(2, runResult.GeneratedTrees.Length);
+            Assert.True(runResult.Diagnostics.IsEmpty);
+
+            // Or you can access the individual results on a by-generator basis
+            GeneratorRunResult generatorResult = runResult.Results[0];
+            Assert.True(generatorResult.Generator == generator);
+            Assert.True(generatorResult.Diagnostics.IsEmpty);
+            Assert.True(generatorResult.GeneratedSources.Length == 1);
+            Assert.True(generatorResult.Exception is null);
         }
     }
 
