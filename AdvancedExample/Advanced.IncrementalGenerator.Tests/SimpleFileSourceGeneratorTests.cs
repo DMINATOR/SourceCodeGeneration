@@ -11,7 +11,7 @@ namespace StaticFiles.IncrementalGenerator.Tests
     public class SimpleFileSourceGeneratorTests
     {
         [Fact]
-        public async Task AddSimpleFile2()
+        public void AddSimpleFile2()
         {
             var code = "// No code as input";
 

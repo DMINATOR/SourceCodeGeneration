@@ -31,8 +31,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
-
 	<ItemGroup>
-    <ProjectReference Include="..\StaticFiles.SourceGenerator\StaticFiles.SourceGenerator.csproj" />
-  </ItemGroup>
+	  <ProjectReference Include="..\Advanced.SourceGenerator\Advanced.SourceGenerator.csproj" />
+	</ItemGroup>
 </Project>

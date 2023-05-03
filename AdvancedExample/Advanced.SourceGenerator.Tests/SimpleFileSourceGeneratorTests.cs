@@ -2,9 +2,9 @@
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using VerifyTestFiles = CSharpSourceGeneratorVerifier<StaticFiles.SourceGenerator.SimpleFileSourceGenerator>;
+using VerifyTestFiles = Advanced.SourceGenerator.Tests.CSharpSourceGeneratorVerifier<Advanced.SourceGenerator.SimpleFileSourceGenerator>;
 
-namespace StaticFiles.Tests
+namespace Advanced.SourceGenerator.Tests
 {
     public class SimpleFileSourceGeneratorTests
     {
@@ -20,8 +20,8 @@ namespace StaticFiles.Tests
                     Sources = { code },
                     GeneratedSources =
                     {
-                        (typeof(StaticFiles.SourceGenerator.SimpleFileSourceGenerator), "TestFile1.g.cs", SourceText.From("// Test File content 1", Encoding.UTF8, SourceHashAlgorithm.Sha1)),
-                        (typeof(StaticFiles.SourceGenerator.SimpleFileSourceGenerator), "TestFile2.g.cs", SourceText.From("// Test File content 2", Encoding.UTF8, SourceHashAlgorithm.Sha1)),
+                        (typeof(Advanced.SourceGenerator.SimpleFileSourceGenerator), "TestFile1.g.cs", SourceText.From("// Test File content 1", Encoding.UTF8, SourceHashAlgorithm.Sha1)),
+                        (typeof(Advanced.SourceGenerator.SimpleFileSourceGenerator), "TestFile2.g.cs", SourceText.From("// Test File content 2", Encoding.UTF8, SourceHashAlgorithm.Sha1)),
                     },
                 },
             }.RunAsync();

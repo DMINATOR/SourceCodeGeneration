@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace StaticFiles.SourceGenerator
+namespace Advanced.SourceGenerator
 {
     /// <summary>
     /// Generates two source files

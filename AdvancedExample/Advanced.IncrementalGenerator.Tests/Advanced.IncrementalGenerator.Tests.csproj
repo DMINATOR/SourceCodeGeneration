@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 
@@ -32,9 +32,8 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
-
 	<ItemGroup>
-		<ProjectReference Include="..\StaticFiles.IncrementalGenerator\StaticFiles.IncrementalGenerator.csproj" />
+	  <ProjectReference Include="..\Advanced.IncrementalGenerator\Advanced.IncrementalGenerator.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
 
-namespace StaticFiles.IncrementalGenerator
+namespace Advanced.IncrementalGenerator
 {
     /// <summary>
     /// Generates two source files
