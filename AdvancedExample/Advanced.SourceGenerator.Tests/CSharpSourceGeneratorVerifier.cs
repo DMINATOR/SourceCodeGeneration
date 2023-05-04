@@ -9,7 +9,6 @@ namespace Advanced.SourceGenerator.Tests
     public static class CSharpSourceGeneratorVerifier<TSourceGenerator>
         where TSourceGenerator : ISourceGenerator, new()
     {
-        // Warning CSharpSourceGeneratorTest -> was renamed to CSharpAnalyzerTest
         public class Test : Microsoft.CodeAnalysis.CSharp.Testing.CSharpSourceGeneratorTest<TSourceGenerator, XUnitVerifier>
         {
             public Test()

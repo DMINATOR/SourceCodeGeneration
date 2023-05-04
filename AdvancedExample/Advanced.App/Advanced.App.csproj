@@ -13,7 +13,7 @@
 		<!-- This has to be added manually with ReferenceOutputAssembly and OutputItemType -->
 		<ProjectReference Include="..\Advanced.IncrementalGenerator\Advanced.IncrementalGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 
-		<ProjectReference Include="..\Advanced.SourceGenerator\Advanced.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\Advanced.SourceGenerator\Advanced.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
 
 	</ItemGroup>
 

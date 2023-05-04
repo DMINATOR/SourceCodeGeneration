@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using Advanced.SourceGenerator;
 
 namespace Advanced.App
 {
@@ -14,7 +15,8 @@ namespace Advanced.App
             HelloFromIncrementalGenerator("IncrementalGenerator !");
         }
 
-        // This will be generated
+        // This will be generated:
+        [GenerateHelloSource]
         static partial void HelloFromSourceGenerator(string name);
 
         static partial void HelloFromIncrementalGenerator(string name);
