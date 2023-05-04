@@ -3,7 +3,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Advanced.SourceGenerator
 {
@@ -63,9 +62,9 @@ namespace Advanced.SourceGenerator
 
         public T GetElement<T>(SyntaxNode syntaxNode) where T : SyntaxNode
         {
-            while(syntaxNode != null)
+            while (syntaxNode != null)
             {
-                if(syntaxNode is T)
+                if (syntaxNode is T)
                 {
                     return syntaxNode as T;
                 }
@@ -119,18 +118,31 @@ namespace {namespaceName}
                 }
 
                 // See if this specific method declaration attributes match
-                var requiresGeneration = methodDeclaration.AttributeLists
+                var attributes = methodDeclaration.AttributeLists
                     .Select(x => x.Attributes)
-                    .SelectMany(x => x)
-                    .Select(x => x.Name)
-                    .OfType<IdentifierNameSyntax>()
-                    .Any(x => x.Identifier.ValueText == "GenerateHelloSource");
+                    .SelectMany(x => x);
+
+                var names = attributes.Select(x => x.Name);
+
+                // Find attribute defined for the method
+                var hasSimplifiedAttribute = HasSimplifiedAttribute(names);
+                var hasFullNameAttribute = HasFullNameAttribute(names);
 
                 // Add to generation list
-                if (requiresGeneration)
+                if (hasSimplifiedAttribute || hasFullNameAttribute)
                 {
                     FoundMethodsToGenerate.Add(methodDeclaration);
                 }
+            }
+
+            bool HasSimplifiedAttribute(IEnumerable<NameSyntax> names)
+            {
+                return names.OfType<IdentifierNameSyntax>().Any(x => x.Identifier.ValueText == "GenerateHelloSource");
+            }
+
+            bool HasFullNameAttribute(IEnumerable<NameSyntax> names)
+            {
+                return names.OfType<QualifiedNameSyntax>().Any(x => x.Right.Identifier.ValueText == "GenerateHelloSource");
             }
         }
     }

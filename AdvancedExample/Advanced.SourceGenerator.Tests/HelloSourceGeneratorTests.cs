@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.Text;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -26,7 +27,7 @@ namespace Advanced.SourceGenerator.Tests
         }
 
         // This will be generated:
-        [GenerateHelloSource]
+        [Advanced.SourceGenerator.GenerateHelloSource]
         static partial void HelloFromSourceGenerator(string name);
     }
 }
@@ -45,11 +46,19 @@ namespace Advanced.SourceGenerator.Tests
     }
 }
 ";
+            string BaseOutputDirectory = Path.GetDirectoryName(typeof(HelloSourceGeneratorTests).Assembly.Location);
+            string generatorAssembly = Path.Combine(BaseOutputDirectory, "StaticFiles.SourceGenerator.dll");
+
+
             // Execute test case
             await new VerifyTestFiles.Test
             {
                 TestState =
                 {
+                    AdditionalReferences =
+                    {
+                        generatorAssembly,
+                    },
                     Sources = { inputSourceCode },
                     GeneratedSources =
                     {
