@@ -47,7 +47,7 @@ namespace Advanced.SourceGenerator.Tests
 }
 ";
             string BaseOutputDirectory = Path.GetDirectoryName(typeof(HelloSourceGeneratorTests).Assembly.Location);
-            string generatorAssembly = Path.Combine(BaseOutputDirectory, "StaticFiles.SourceGenerator.dll");
+            string generatorAssembly = Path.Combine(BaseOutputDirectory, "Advanced.SourceGenerator.dll");
 
 
             // Execute test case
