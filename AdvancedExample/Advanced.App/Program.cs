@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace StaticFilesApp
+namespace Advanced.App
 {
     /// <summary>
     /// This example is based on - https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview
@@ -9,9 +9,9 @@ namespace StaticFilesApp
     {
         static void Main(string[] args)
         {
-            HelloFromSourceGenerator("Console App !");
+            HelloFromSourceGenerator("SourceGenerator !");
 
-            HelloFromIncrementalGenerator("Console App !");
+            HelloFromIncrementalGenerator("IncrementalGenerator !");
         }
 
         // This will be generated
