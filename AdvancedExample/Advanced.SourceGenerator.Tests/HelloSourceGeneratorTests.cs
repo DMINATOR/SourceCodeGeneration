@@ -11,7 +11,7 @@ namespace Advanced.SourceGenerator.Tests
         [Fact]
         public async Task AddSimpleFile2()
         {
-            var code = HelloSourceGenerator.GetSource("Advanced.SourceGenerator.Tests", "Program");
+            var code = HelloSourceGenerator.GetGeneratedSource("Advanced.SourceGenerator.Tests", "Program", "dd");
 
             await new VerifyTestFiles.Test
             {

@@ -2,7 +2,7 @@
   "profiles": {
     "DebugProfile": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\StaticFiles.App\\StaticFiles.App.csproj"
+      "targetProject": "..\\Advanced.App\\Advanced.App.csproj"
     }
   }
 }
