@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using Advanced.SourceGenerator;
+﻿using Advanced.SourceGenerator;
 
 namespace Advanced.App
 {
