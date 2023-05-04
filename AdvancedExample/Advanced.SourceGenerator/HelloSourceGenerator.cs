@@ -29,16 +29,6 @@ namespace Advanced.SourceGenerator
     {
         public void Execute(GeneratorExecutionContext context)
         {
-            //// Find the main method
-            //var mainMethod = context.Compilation.GetEntryPoint(context.CancellationToken);
-
-            //// Build up the source code
-            //string source = GetSource(mainMethod.ContainingNamespace.ToDisplayString(), mainMethod.ContainingType.Name);
-            //var typeName = mainMethod.ContainingType.Name;
-
-            //// Add the source code to the compilation
-            //context.AddSource($"{typeName}.g.cs", source);
-
             // Get our SyntaxReceiver back
             if (!(context.SyntaxReceiver is SyntaxReceiverForGenerateHelloSourceAttribute receiver))
             {
@@ -48,18 +38,20 @@ namespace Advanced.SourceGenerator
             {
                 foreach (var methodDeclarationSyntax in receiver.FoundMethodsToGenerate)
                 {
+                    // Get properties of method for generation
                     var methodName = methodDeclarationSyntax.Identifier.Text;
                     var className = GetElement<ClassDeclarationSyntax>(methodDeclarationSyntax).Identifier.Text;
                     var namespaceName = GetElement<NamespaceDeclarationSyntax>(methodDeclarationSyntax).Name.ToString();
 
                     var generatedSourceCode = GetGeneratedSource(namespaceName, className, methodName);
 
-                    //add to generation
+                    //add file to generation
                     context.AddSource($"{className}.g.cs", generatedSourceCode);
                 }
             }
         }
 
+        // Retrieve element from the syntax tree
         public T GetElement<T>(SyntaxNode syntaxNode) where T : SyntaxNode
         {
             while (syntaxNode != null)
@@ -75,11 +67,6 @@ namespace Advanced.SourceGenerator
             }
 
             throw new Exception($"Namespace cannot be located for '{syntaxNode.GetLocation()}'");
-        }
-
-        public void GetMethodsWithAttribute()
-        {
-
         }
 
         public static string GetGeneratedSource(string namespaceName, string className, string methodName)

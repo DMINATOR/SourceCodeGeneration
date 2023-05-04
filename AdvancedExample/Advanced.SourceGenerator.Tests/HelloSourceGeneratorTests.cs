@@ -46,9 +46,9 @@ namespace Advanced.SourceGenerator.Tests
     }
 }
 ";
+            // Since we're using GenerateHelloSource attribute, we need to load that assembly manually
             string BaseOutputDirectory = Path.GetDirectoryName(typeof(HelloSourceGeneratorTests).Assembly.Location);
             string generatorAssembly = Path.Combine(BaseOutputDirectory, "Advanced.SourceGenerator.dll");
-
 
             // Execute test case
             await new VerifyTestFiles.Test
