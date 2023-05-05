@@ -1,16 +1,12 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis;
-using System;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using Advanced.IncrementalGenerator;
 
 namespace StaticFiles.IncrementalGenerator.Tests
 {
-    public static class CSharpIncrementalGeneratorVerifier
+    public static class CSharpIncrementalGeneratorVerifier<TIncrementalGenerator> where TIncrementalGenerator : IIncrementalGenerator
     {
-        public static GeneratorDriverRunResult Verify(string source)
+        public static GeneratorDriverRunResult Verify(string source, TIncrementalGenerator generator)
         {
             SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(source);
 
@@ -26,7 +22,7 @@ namespace StaticFiles.IncrementalGenerator.Tests
                 syntaxTrees: new[] { syntaxTree },
                 references: references); // 👈 pass the references to the compilation
 
-            var generator = new SimpleFileIncrementalGenerator();
+            //var generator = new SimpleFileIncrementalGenerator();
 
             GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
 
