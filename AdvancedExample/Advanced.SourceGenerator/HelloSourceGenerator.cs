@@ -87,6 +87,7 @@ namespace {namespaceName}
 
         public void Initialize(GeneratorInitializationContext context)
         {
+            // Register notifications for syntax changes
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiverForGenerateHelloSourceAttribute());
         }
 
