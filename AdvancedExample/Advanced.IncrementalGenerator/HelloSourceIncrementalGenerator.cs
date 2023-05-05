@@ -1,28 +1,149 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
 
 namespace Advanced.IncrementalGenerator
 {
+    public class GenerateHelloSourceIncrementalAttribute : Attribute
+    {
+
+    }
+
     /// <summary>
-    /// Generates two source files
+    /// Generates, 
+    /// 
+    /// see: https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/
+    /// 
+    /// Note that there's no Execute() method now, in contrast to the previous ISourceGenerator interface.
     /// </summary>
     [Generator]
     public class HelloSourceIncrementalGenerator : IIncrementalGenerator
     {
+        // A method that has attributes
+        //static bool IsSyntaxTargetForGeneration(SyntaxNode node)
+        //    => node is MethodDeclarationSyntax m && m.AttributeLists.Count > 0;
+
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            // Add the source code to the compilation
-            context.RegisterPostInitializationOutput(ctx =>
-            ctx.AddSource(
-                       "TestFile1.g.cs",
-                       SourceText.From("// Test File content 1", Encoding.UTF8)));
+            IncrementalValuesProvider<ClassDeclarationSyntax> classDeclarations = context.SyntaxProvider
+                .CreateSyntaxProvider(
+                    predicate: static (s, _) => IsSyntaxTargetForGeneration(s),
+                    transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx))
+                .Where(static m => m is not null);
 
-            // Add the source code to the compilation
-            context.RegisterPostInitializationOutput(ctx =>
-            ctx.AddSource(
-                       "TestFile2.g.cs",
-                       SourceText.From("// Test File content 2", Encoding.UTF8)));
+            IncrementalValueProvider<(Compilation, ImmutableArray<ClassDeclarationSyntax>)> compilationAndClasses
+                = context.CompilationProvider.Combine(classDeclarations.Collect());
+
+            context.RegisterSourceOutput(compilationAndClasses,
+                static (spc, source) => Execute(source.Item1, source.Item2, spc));
+
+            //// Add the source code to the compilation
+            //context.RegisterPostInitializationOutput(ctx =>
+            //ctx.AddSource(
+            //           "TestFile1.g.cs",
+            //           SourceText.From("// Test File content 1", Encoding.UTF8)));
+
+            //// Add the source code to the compilation
+            //context.RegisterPostInitializationOutput(ctx =>
+            //ctx.AddSource(
+            //           "TestFile2.g.cs",
+            //           SourceText.From("// Test File content 2", Encoding.UTF8)));
+        }
+
+        static bool IsSyntaxTargetForGeneration(SyntaxNode node)
+        {
+            return node is MethodDeclarationSyntax m && m.AttributeLists.Count > 0;
+        }
+
+        static ClassDeclarationSyntax? GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
+        {
+            // we know the node is a MethodDeclarationSyntax thanks to IsSyntaxTargetForGeneration
+            var methodDeclarationSyntax = (MethodDeclarationSyntax)context.Node;
+
+            // loop through all the attributes on the method
+            foreach (AttributeListSyntax attributeListSyntax in methodDeclarationSyntax.AttributeLists)
+            {
+                foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                {
+                    IMethodSymbol attributeSymbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol as IMethodSymbol;
+                    if (attributeSymbol == null)
+                    {
+                        // weird, we couldn't get the symbol, ignore it
+                        continue;
+                    }
+
+                    INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
+                    string fullName = attributeContainingTypeSymbol.ToDisplayString();
+
+                    // Is the attribute the [LoggerMessage] attribute?
+                    if (fullName == nameof(GenerateHelloSourceIncrementalAttribute))
+                    {
+                        // return the parent class of the method
+                        return methodDeclarationSyntax.Parent as ClassDeclarationSyntax;
+                    }
+                }
+            }
+
+            // we didn't find the attribute we were looking for
+            return null;
+        }
+
+        private static void Execute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes, SourceProductionContext context)
+        {
+            if (classes.IsDefaultOrEmpty)
+            {
+                // nothing to do yet
+                return;
+            }
+
+            context.AddSource("Program.g.cs", SourceText.From("Ddd", Encoding.UTF8));
+
+            //foreach (var methodDeclarationSyntax in classes)
+            //{
+            //    // Get properties of method for generation
+            //    var methodName = methodDeclarationSyntax.Identifier.Text;
+            //    var className = GetElement<ClassDeclarationSyntax>(methodDeclarationSyntax).Identifier.Text;
+            //    var namespaceName = GetElement<NamespaceDeclarationSyntax>(methodDeclarationSyntax).Name.ToString();
+
+            //    var generatedSourceCode = GetGeneratedSource(namespaceName, className, methodName);
+
+            //    //add file to generation
+            //    context.AddSource($"{className}.g.cs", generatedSourceCode);
+            //}
+
+            //IEnumerable<ClassDeclarationSyntax> distinctClasses = classes.Distinct();
+
+            //var p = new Parser(compilation, context.ReportDiagnostic, context.CancellationToken);
+
+            //IReadOnlyList<LoggerClass> logClasses = p.GetLogClasses(distinctClasses);
+            //if (logClasses.Count > 0)
+            //{
+            //    var e = new Emitter();
+            //    string result = e.Emit(logClasses, context.CancellationToken);
+
+            //    context.AddSource("Program.g.cs", SourceText.From(result, Encoding.UTF8));
+            //}
+        }
+
+        public static string GetGeneratedSource(string namespaceName, string className, string methodName)
+        {
+            return $@"// <auto-generated/>
+using System;
+
+namespace {namespaceName}
+{{
+    public static partial class {className}
+    {{
+        static partial void {methodName}(string name) =>
+            Console.WriteLine($""Generator says: Hi from '{{name}}'"");
+    }}
+}}
+";
         }
     }
 }

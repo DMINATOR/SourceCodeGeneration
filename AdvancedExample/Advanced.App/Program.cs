@@ -1,4 +1,5 @@
-﻿using Advanced.SourceGenerator;
+﻿using Advanced.IncrementalGenerator;
+using Advanced.SourceGenerator;
 
 namespace Advanced.App
 {
@@ -18,6 +19,7 @@ namespace Advanced.App
         [GenerateHelloSource]
         static partial void HelloFromSourceGenerator(string name);
 
+        [GenerateHelloSourceIncremental]
         static partial void HelloFromIncrementalGenerator(string name);
     }
 }

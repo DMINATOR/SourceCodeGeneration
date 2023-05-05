@@ -11,7 +11,9 @@
 	<ItemGroup>
 
 		<!-- This has to be added manually with ReferenceOutputAssembly and OutputItemType -->
-		<ProjectReference Include="..\Advanced.IncrementalGenerator\Advanced.IncrementalGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\Advanced.IncrementalGenerator\Advanced.IncrementalGenerator.csproj" 
+						  OutputItemType="Analyzer" 
+						  ReferenceOutputAssembly="true" />
 
 		<!-- The ReferenceOutputAssembly is false by default, changed to True to reference other classes as well.-->
 		<ProjectReference Include="..\Advanced.SourceGenerator\Advanced.SourceGenerator.csproj" 
