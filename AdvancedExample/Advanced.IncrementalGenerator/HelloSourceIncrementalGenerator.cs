@@ -30,14 +30,14 @@ namespace Advanced.IncrementalGenerator
 
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            IncrementalValuesProvider<ClassDeclarationSyntax> classDeclarations = context.SyntaxProvider
+            IncrementalValuesProvider<MethodDeclarationSyntax> methodDeclarations = context.SyntaxProvider
                 .CreateSyntaxProvider(
                     predicate: static (s, _) => IsSyntaxTargetForGeneration(s),
                     transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx))
                 .Where(static m => m is not null);
 
-            IncrementalValueProvider<(Compilation, ImmutableArray<ClassDeclarationSyntax>)> compilationAndClasses
-                = context.CompilationProvider.Combine(classDeclarations.Collect());
+            IncrementalValueProvider<(Compilation, ImmutableArray<MethodDeclarationSyntax>)> compilationAndClasses
+                = context.CompilationProvider.Combine(methodDeclarations.Collect());
 
             context.RegisterSourceOutput(compilationAndClasses,
                 static (spc, source) => Execute(source.Item1, source.Item2, spc));
@@ -60,7 +60,7 @@ namespace Advanced.IncrementalGenerator
             return node is MethodDeclarationSyntax m && m.AttributeLists.Count > 0;
         }
 
-        static ClassDeclarationSyntax? GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
+        static MethodDeclarationSyntax? GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
         {
             // we know the node is a MethodDeclarationSyntax thanks to IsSyntaxTargetForGeneration
             var methodDeclarationSyntax = (MethodDeclarationSyntax)context.Node;
@@ -70,22 +70,27 @@ namespace Advanced.IncrementalGenerator
             {
                 foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
                 {
-                    IMethodSymbol attributeSymbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol as IMethodSymbol;
-                    if (attributeSymbol == null)
+                    if( attributeSyntax.ToString() == "GenerateHelloSourceIncremental")
                     {
-                        // weird, we couldn't get the symbol, ignore it
-                        continue;
+                        return methodDeclarationSyntax;
                     }
 
-                    INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
-                    string fullName = attributeContainingTypeSymbol.ToDisplayString();
+                    //IMethodSymbol attributeSymbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol as IMethodSymbol;
+                    //if (attributeSymbol == null)
+                    //{
+                    //    // weird, we couldn't get the symbol, ignore it
+                    //    continue;
+                    //}
 
-                    // Is the attribute the [LoggerMessage] attribute?
-                    if (fullName == nameof(GenerateHelloSourceIncrementalAttribute))
-                    {
-                        // return the parent class of the method
-                        return methodDeclarationSyntax.Parent as ClassDeclarationSyntax;
-                    }
+                    //INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
+                    //string fullName = attributeContainingTypeSymbol.ToDisplayString();
+
+                    //// Is the attribute the [LoggerMessage] attribute?
+                    //if (fullName == nameof(GenerateHelloSourceIncrementalAttribute))
+                    //{
+                    //    // return the parent class of the method
+                    //    return methodDeclarationSyntax.Parent as ClassDeclarationSyntax;
+                    //}
                 }
             }
 
@@ -93,15 +98,29 @@ namespace Advanced.IncrementalGenerator
             return null;
         }
 
-        private static void Execute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes, SourceProductionContext context)
+        private static void Execute(Compilation compilation, ImmutableArray<MethodDeclarationSyntax> methods, SourceProductionContext context)
         {
-            if (classes.IsDefaultOrEmpty)
+            if (methods.IsDefaultOrEmpty)
             {
                 // nothing to do yet
                 return;
             }
 
-            context.AddSource("Program.g.cs", SourceText.From("Ddd", Encoding.UTF8));
+            foreach (var methodDeclarationSyntax in methods)
+            {
+                // Get properties of method for generation
+                var methodName = methodDeclarationSyntax.Identifier.Text;
+                var className = GetElement<ClassDeclarationSyntax>(methodDeclarationSyntax).Identifier.Text;
+                var namespaceName = GetElement<NamespaceDeclarationSyntax>(methodDeclarationSyntax).Name.ToString();
+
+                var generatedSourceCode = GetGeneratedSource(namespaceName, className, methodName);
+
+                //add file to generation
+                context.AddSource($"{className}.g.cs", generatedSourceCode);
+            }
+
+
+
 
             //foreach (var methodDeclarationSyntax in classes)
             //{
@@ -128,6 +147,24 @@ namespace Advanced.IncrementalGenerator
 
             //    context.AddSource("Program.g.cs", SourceText.From(result, Encoding.UTF8));
             //}
+        }
+
+        // Retrieve element from the syntax tree
+        public static T GetElement<T>(SyntaxNode syntaxNode) where T : SyntaxNode
+        {
+            while (syntaxNode != null)
+            {
+                if (syntaxNode is T)
+                {
+                    return syntaxNode as T;
+                }
+                else
+                {
+                    syntaxNode = syntaxNode.Parent;
+                }
+            }
+
+            throw new Exception($"Namespace cannot be located for '{syntaxNode.GetLocation()}'");
         }
 
         public static string GetGeneratedSource(string namespaceName, string className, string methodName)
