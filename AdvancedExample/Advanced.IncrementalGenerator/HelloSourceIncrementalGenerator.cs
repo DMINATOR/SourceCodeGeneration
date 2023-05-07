@@ -70,27 +70,11 @@ namespace Advanced.IncrementalGenerator
             {
                 foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
                 {
+                    // Match by attribute name exactly
                     if( attributeSyntax.ToString() == "GenerateHelloSourceIncremental")
                     {
                         return methodDeclarationSyntax;
                     }
-
-                    //IMethodSymbol attributeSymbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol as IMethodSymbol;
-                    //if (attributeSymbol == null)
-                    //{
-                    //    // weird, we couldn't get the symbol, ignore it
-                    //    continue;
-                    //}
-
-                    //INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
-                    //string fullName = attributeContainingTypeSymbol.ToDisplayString();
-
-                    //// Is the attribute the [LoggerMessage] attribute?
-                    //if (fullName == nameof(GenerateHelloSourceIncrementalAttribute))
-                    //{
-                    //    // return the parent class of the method
-                    //    return methodDeclarationSyntax.Parent as ClassDeclarationSyntax;
-                    //}
                 }
             }
 
@@ -118,35 +102,6 @@ namespace Advanced.IncrementalGenerator
                 //add file to generation
                 context.AddSource($"{className}.g.cs", generatedSourceCode);
             }
-
-
-
-
-            //foreach (var methodDeclarationSyntax in classes)
-            //{
-            //    // Get properties of method for generation
-            //    var methodName = methodDeclarationSyntax.Identifier.Text;
-            //    var className = GetElement<ClassDeclarationSyntax>(methodDeclarationSyntax).Identifier.Text;
-            //    var namespaceName = GetElement<NamespaceDeclarationSyntax>(methodDeclarationSyntax).Name.ToString();
-
-            //    var generatedSourceCode = GetGeneratedSource(namespaceName, className, methodName);
-
-            //    //add file to generation
-            //    context.AddSource($"{className}.g.cs", generatedSourceCode);
-            //}
-
-            //IEnumerable<ClassDeclarationSyntax> distinctClasses = classes.Distinct();
-
-            //var p = new Parser(compilation, context.ReportDiagnostic, context.CancellationToken);
-
-            //IReadOnlyList<LoggerClass> logClasses = p.GetLogClasses(distinctClasses);
-            //if (logClasses.Count > 0)
-            //{
-            //    var e = new Emitter();
-            //    string result = e.Emit(logClasses, context.CancellationToken);
-
-            //    context.AddSource("Program.g.cs", SourceText.From(result, Encoding.UTF8));
-            //}
         }
 
         // Retrieve element from the syntax tree

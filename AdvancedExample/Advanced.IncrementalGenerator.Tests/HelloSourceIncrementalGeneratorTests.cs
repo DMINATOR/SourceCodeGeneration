@@ -8,7 +8,7 @@ namespace Advanced.IncrementalGenerator.Tests
     public class HelloSourceIncrementalGeneratorTests
     {
         [Fact]
-        public void Generate_Success()
+        public void Generate_1_Method_Success()
         {
             // Input to use as a source for generation
             var inputSourceCode =
@@ -55,6 +55,38 @@ namespace Advanced.IncrementalGenerator.Tests
 
             Assert.True(SourceText.From(expectedGeneratedCode, Encoding.UTF8, SourceHashAlgorithm.Sha1).ContentEquals(resultRun.GeneratedSources[0].SourceText));
             Assert.Equal("Program.g.cs", resultRun.GeneratedSources[0].HintName);
+        }
+
+
+        [Fact]
+        public void Generate_0_Method_Success()
+        {
+            // Input to use as a source for generation
+            var inputSourceCode =
+@"
+using Advanced.IncrementalGenerator;
+
+namespace Advanced.IncrementalGenerator.Tests
+{
+    partial class Program
+    {
+        static void Main(string[] args)
+        {
+            HelloFromIncrementalGenerator(""SourceGenerator !"");
+        }
+
+        // This doesn't have generator, won't be generated
+        static partial void HelloFromIncrementalGenerator(string name);
+    }
+}
+";
+            var result = CSharpIncrementalGeneratorVerifier<HelloSourceIncrementalGenerator>.Verify(inputSourceCode, new HelloSourceIncrementalGenerator());
+
+            Assert.True(result.Diagnostics.IsEmpty);
+            Assert.Single(result.Results);
+
+            var resultRun = result.Results[0];
+            Assert.Empty(resultRun.GeneratedSources); // 1 - No files should be generated
         }
     }
 }
