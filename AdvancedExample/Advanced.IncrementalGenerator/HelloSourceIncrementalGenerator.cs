@@ -1,12 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Advanced.IncrementalGenerator
 {
@@ -25,10 +21,6 @@ namespace Advanced.IncrementalGenerator
     [Generator]
     public class HelloSourceIncrementalGenerator : IIncrementalGenerator
     {
-        // A method that has attributes
-        //static bool IsSyntaxTargetForGeneration(SyntaxNode node)
-        //    => node is MethodDeclarationSyntax m && m.AttributeLists.Count > 0;
-
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
             IncrementalValuesProvider<MethodDeclarationSyntax> methodDeclarations = context.SyntaxProvider
@@ -37,23 +29,11 @@ namespace Advanced.IncrementalGenerator
                     transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx))
                 .Where(static m => m is not null);
 
-            IncrementalValueProvider<(Compilation, ImmutableArray<MethodDeclarationSyntax>)> compilationAndClasses
+            IncrementalValueProvider<(Compilation, ImmutableArray<MethodDeclarationSyntax>)> compilationAndMethods
                 = context.CompilationProvider.Combine(methodDeclarations.Collect());
 
-            context.RegisterSourceOutput(compilationAndClasses,
+            context.RegisterSourceOutput(compilationAndMethods,
                 static (spc, source) => Execute(source.Item1, source.Item2, spc));
-
-            //// Add the source code to the compilation
-            //context.RegisterPostInitializationOutput(ctx =>
-            //ctx.AddSource(
-            //           "TestFile1.g.cs",
-            //           SourceText.From("// Test File content 1", Encoding.UTF8)));
-
-            //// Add the source code to the compilation
-            //context.RegisterPostInitializationOutput(ctx =>
-            //ctx.AddSource(
-            //           "TestFile2.g.cs",
-            //           SourceText.From("// Test File content 2", Encoding.UTF8)));
         }
 
         static bool IsSyntaxTargetForGeneration(SyntaxNode node)
@@ -72,7 +52,7 @@ namespace Advanced.IncrementalGenerator
                 foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
                 {
                     // Match by attribute name exactly
-                    if( attributeSyntax.ToString() == "GenerateHelloSourceIncremental")
+                    if (attributeSyntax.ToString() == "GenerateHelloSourceIncremental")
                     {
                         return methodDeclarationSyntax;
                     }
