@@ -23,17 +23,15 @@ namespace Advanced.IncrementalGenerator
     {
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            IncrementalValuesProvider<MethodDeclarationSyntax> methodDeclarations = context.SyntaxProvider
+            var methodDeclarations = context.SyntaxProvider
                 .CreateSyntaxProvider(
                     predicate: static (s, _) => IsSyntaxTargetForGeneration(s),
                     transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx))
                 .Where(static m => m is not null);
 
-            IncrementalValueProvider<(Compilation, ImmutableArray<MethodDeclarationSyntax>)> compilationAndMethods
-                = context.CompilationProvider.Combine(methodDeclarations.Collect());
+            var compilationAndMethods = context.CompilationProvider.Combine(methodDeclarations.Collect());
 
-            context.RegisterSourceOutput(compilationAndMethods,
-                static (spc, source) => Execute(source.Item1, source.Item2, spc));
+            context.RegisterSourceOutput(compilationAndMethods,static (spc, source) => Execute(source.Item1, source.Item2, spc));
         }
 
         static bool IsSyntaxTargetForGeneration(SyntaxNode node)
