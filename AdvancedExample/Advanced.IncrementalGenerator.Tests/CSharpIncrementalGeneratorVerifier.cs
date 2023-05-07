@@ -22,8 +22,6 @@ namespace StaticFiles.IncrementalGenerator.Tests
                 syntaxTrees: new[] { syntaxTree },
                 references: references); // 👈 pass the references to the compilation
 
-            //var generator = new SimpleFileIncrementalGenerator();
-
             GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
 
             // Or we can look at the results directly:

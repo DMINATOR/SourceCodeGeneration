@@ -12,7 +12,7 @@ namespace Advanced.IncrementalGenerator
     }
 
     /// <summary>
-    /// Generates, 
+    /// Generates code for the method that is defined with GenerateHelloSourceIncrementalAttribute
     /// 
     /// see: https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/
     /// 

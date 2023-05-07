@@ -1,6 +1,4 @@
-﻿using Microsoft.CodeAnalysis.Text;
-using StaticFiles.IncrementalGenerator.Tests;
-using System.Text;
+﻿using StaticFiles.IncrementalGenerator.Tests;
 using Xunit;
 
 namespace Advanced.IncrementalGenerator.Tests
