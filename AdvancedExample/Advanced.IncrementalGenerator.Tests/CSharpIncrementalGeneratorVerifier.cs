@@ -1,12 +1,13 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StaticFiles.IncrementalGenerator.Tests
 {
     public static class CSharpIncrementalGeneratorVerifier<TIncrementalGenerator> where TIncrementalGenerator : IIncrementalGenerator
     {
-        public static GeneratorDriverRunResult Verify(string source, TIncrementalGenerator generator)
+        public static GeneratorDriverRunResult Verify(string source, TIncrementalGenerator generator, IEnumerable<AdditionalText> additionalTexts = null)
         {
             SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(source);
 
@@ -22,7 +23,9 @@ namespace StaticFiles.IncrementalGenerator.Tests
                 syntaxTrees: new[] { syntaxTree },
                 references: references); // 👈 pass the references to the compilation
 
-            GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
+            // The only method that supports passing additional texts
+            GeneratorDriver driver = CSharpGeneratorDriver.Create((new IIncrementalGenerator[]{generator})
+                .Select(GeneratorExtensions.AsSourceGenerator), additionalTexts: additionalTexts);
 
             // Or we can look at the results directly:
             driver = driver.RunGenerators(compilation);
