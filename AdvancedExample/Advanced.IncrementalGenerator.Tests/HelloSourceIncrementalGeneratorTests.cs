@@ -53,7 +53,7 @@ namespace Advanced.IncrementalGenerator.Tests
             var resultRun = result.Results[0];
             Assert.Single(resultRun.GeneratedSources);
 
-            Assert.True(SourceText.From(expectedGeneratedCode, Encoding.UTF8, SourceHashAlgorithm.Sha1).ContentEquals(resultRun.GeneratedSources[0].SourceText));
+            Assert.Equal(expectedGeneratedCode, resultRun.GeneratedSources[0].SourceText.ToString());
             Assert.Equal("Program.g.cs", resultRun.GeneratedSources[0].HintName);
         }
 
