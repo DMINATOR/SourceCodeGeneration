@@ -39,7 +39,7 @@ namespace Advanced.IncrementalGenerator
             return node is MethodDeclarationSyntax m && m.AttributeLists.Count > 0;
         }
 
-        static MethodDeclarationSyntax? GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
+        static MethodDeclarationSyntax GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
         {
             // we know the node is a MethodDeclarationSyntax thanks to IsSyntaxTargetForGeneration
             var methodDeclarationSyntax = (MethodDeclarationSyntax)context.Node;
