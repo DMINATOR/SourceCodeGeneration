@@ -13,6 +13,8 @@ namespace Advanced.App
             HelloFromSourceGenerator("SourceGenerator !");
 
             HelloFromIncrementalGenerator("IncrementalGenerator !");
+
+            Console.WriteLine($"Found file = {ConstStringsFromIncrementalGenerator.TextFile1}");
         }
 
         // This will be generated:
