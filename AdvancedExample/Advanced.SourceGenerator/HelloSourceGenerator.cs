@@ -27,6 +27,14 @@ namespace Advanced.SourceGenerator
     [Generator]
     public class HelloSourceGenerator : ISourceGenerator
     {
+        // Initialize and configure Syntax notifications
+        public void Initialize(GeneratorInitializationContext context)
+        {
+            // Register notifications for syntax changes
+            context.RegisterForSyntaxNotifications(() => new SyntaxReceiverForGenerateHelloSourceAttribute());
+        }
+
+        // Execute code generation, but only for the registered syntax notifications
         public void Execute(GeneratorExecutionContext context)
         {
             // Get our SyntaxReceiver back
@@ -51,7 +59,7 @@ namespace Advanced.SourceGenerator
             }
         }
 
-        // Retrieve element from the syntax tree
+        // Retrieve element from the syntax tree matching the node type
         public T GetElement<T>(SyntaxNode syntaxNode) where T : SyntaxNode
         {
             while (syntaxNode != null)
@@ -83,12 +91,6 @@ namespace {namespaceName}
     }}
 }}
 ";
-        }
-
-        public void Initialize(GeneratorInitializationContext context)
-        {
-            // Register notifications for syntax changes
-            context.RegisterForSyntaxNotifications(() => new SyntaxReceiverForGenerateHelloSourceAttribute());
         }
 
         internal class SyntaxReceiverForGenerateHelloSourceAttribute : ISyntaxReceiver

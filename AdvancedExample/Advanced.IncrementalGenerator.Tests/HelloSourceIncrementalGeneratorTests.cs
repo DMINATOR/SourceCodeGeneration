@@ -84,7 +84,7 @@ namespace Advanced.IncrementalGenerator.Tests
             Assert.Single(result.Results);
 
             var resultRun = result.Results[0];
-            Assert.Empty(resultRun.GeneratedSources); // 1 - No files should be generated
+            Assert.Empty(resultRun.GeneratedSources); // No files should be generated
         }
     }
 }
