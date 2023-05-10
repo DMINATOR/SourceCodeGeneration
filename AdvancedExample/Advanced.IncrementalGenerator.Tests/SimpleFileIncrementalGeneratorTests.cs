@@ -1,9 +1,8 @@
-﻿using Advanced.IncrementalGenerator;
-using Microsoft.CodeAnalysis.Text;
+﻿using Microsoft.CodeAnalysis.Text;
 using System.Text;
 using Xunit;
 
-namespace StaticFiles.IncrementalGenerator.Tests
+namespace Advanced.IncrementalGenerator.Tests
 {
     public class SimpleFileIncrementalGeneratorTests
     {

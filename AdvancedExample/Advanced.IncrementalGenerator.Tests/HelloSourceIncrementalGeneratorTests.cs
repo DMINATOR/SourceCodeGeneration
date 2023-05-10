@@ -1,5 +1,4 @@
-﻿using StaticFiles.IncrementalGenerator.Tests;
-using Xunit;
+﻿using Xunit;
 
 namespace Advanced.IncrementalGenerator.Tests
 {

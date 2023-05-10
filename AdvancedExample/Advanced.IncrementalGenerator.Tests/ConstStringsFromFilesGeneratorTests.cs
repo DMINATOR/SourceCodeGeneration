@@ -1,6 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
-using StaticFiles.IncrementalGenerator.Tests;
 using System.Collections.Generic;
 using System.Threading;
 using Xunit;

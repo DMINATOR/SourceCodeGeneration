@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StaticFiles.IncrementalGenerator.Tests
+namespace Advanced.IncrementalGenerator.Tests
 {
     public static class CSharpIncrementalGeneratorVerifier<TIncrementalGenerator> where TIncrementalGenerator : IIncrementalGenerator
     {
